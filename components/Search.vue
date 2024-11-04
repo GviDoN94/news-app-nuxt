@@ -31,6 +31,13 @@
       setSearchQuery(value);
     }, 300);
   };
+
+  watch(
+    () => route.query.search,
+    (newSearchQuery) => {
+      searchValue.value = newSearchQuery as string;
+    },
+  );
 </script>
 
 <style scoped lang="scss">

@@ -2,7 +2,10 @@
   <header class="header">
     <div class="container">
       <h1 class="header__title">Список новостей</h1>
-      <button class="refresh-news">
+      <button
+        class="refresh-news"
+        @click="resetFilters"
+      >
         <svg
           width="20.000000"
           height="16.000000"
@@ -25,6 +28,20 @@
     </div>
   </header>
 </template>
+
+<script setup lang="ts">
+  const router = useRouter();
+
+  const newsStore = useNewsStore();
+  const { setSearchQuery, setSource } = newsStore;
+
+  const resetFilters = () => {
+    setSearchQuery(undefined);
+    setSource('all');
+
+    router.push({ name: 'page', params: { page: 1 }, query: {} });
+  };
+</script>
 
 <style scoped lang="scss">
   .header {

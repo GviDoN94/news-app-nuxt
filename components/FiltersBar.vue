@@ -112,7 +112,11 @@
   ];
 
   const updateSource = (source: TSource) => {
-    router.replace({ query: { ...route.query, source } });
+    router.replace({
+      name: 'page',
+      params: { page: 1 },
+      query: { ...route.query, source },
+    });
     setSource(source);
   };
 
@@ -120,10 +124,11 @@
     if (value === viewMode.value) {
       return;
     }
+
     localStorage.setItem('viewMode', value);
     setViewMode(value);
     if (route.params.page !== '1') {
-      router.replace({ name: 'page', params: { page: 1 } });
+      router.replace({ name: 'page', params: { page: 1 }, query: route.query });
     }
   };
 </script>

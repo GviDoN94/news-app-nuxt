@@ -62,7 +62,7 @@
   const changePage = (page: string | number) => {
     if (typeof page === 'number' && page !== currentPage.value) {
       currentPage.value = page;
-      router.push({ name: 'page', params: { page } });
+      router.push({ name: 'page', params: { page }, query: route.query });
     }
   };
 
