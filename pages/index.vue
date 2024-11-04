@@ -29,4 +29,10 @@
       grid-template-columns: auto;
     }
   }
+
+  @media (max-width: 767px) {
+    .news {
+      grid-template-columns: auto;
+    }
+  }
 </style>

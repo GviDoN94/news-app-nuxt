@@ -4,11 +4,13 @@
     :class="{ 'news-item--list': viewMode === 'list' }"
   >
     <div class="news-item__header">
-      <img
-        class="news-item__image"
-        :src="newsItem.image"
-        alt="News image"
-      />
+      <div class="news-item__image-wrapper">
+        <img
+          class="news-item__image"
+          :src="newsItem.image"
+          alt="News image"
+        />
+      </div>
       <div class="news-item__content">
         <h2 class="news-item__title">{{ newsItem.title }}</h2>
         <div
@@ -71,10 +73,14 @@
       gap: 30px;
     }
 
-    &__image {
+    &__image-wrapper {
       display: none;
+      flex-shrink: 0;
+      width: 200px;
+    }
+
+    &__image {
       width: 100%;
-      max-width: 200px;
     }
 
     &__content {
@@ -120,7 +126,7 @@
       padding-bottom: 0;
 
       .news-item {
-        &__image {
+        &__image-wrapper {
           display: block;
         }
 
@@ -128,12 +134,36 @@
           margin-top: 20px;
         }
 
-        &__details {
-          display: none;
-        }
-
         &__footer {
           padding: 4px 0;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    .news-item {
+      padding: 22px;
+      padding-bottom: 0;
+
+      &__description {
+        margin-top: 20px;
+      }
+
+      &__footer {
+        padding: 4px 0;
+      }
+
+      &--list {
+        .news-item {
+          &__header {
+            flex-direction: column;
+            gap: 20px;
+          }
+
+          &__image-wrapper {
+            width: 100%;
+          }
         }
       }
     }

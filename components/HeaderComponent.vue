@@ -31,10 +31,12 @@
 
 <style scoped lang="scss">
   .header {
+    padding: 36px 0;
+
     .container {
       display: flex;
       align-items: center;
-      padding: 36px 0;
+      flex-wrap: wrap;
     }
 
     &__title {
@@ -79,6 +81,28 @@
       background-repeat: no-repeat;
       background-position: calc(100% - 13px) center;
       background-size: 20px 20px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .header {
+      .container {
+        justify-content: space-between;
+      }
+
+      &__title {
+        font-size: 24px;
+        line-height: 28px;
+      }
+
+      .refresh-news {
+        margin: 0;
+      }
+
+      .search {
+        margin-top: 20px;
+        max-width: 100%;
+      }
     }
   }
 </style>
