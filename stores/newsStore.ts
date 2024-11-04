@@ -77,6 +77,11 @@ export const useNewsStore = defineStore('newsStore', () => {
     viewMode.value = mode;
   };
 
+  const searchQuery = ref<string | undefined>();
+
+  const setSearchQuery = (query: string | undefined) =>
+    (searchQuery.value = query);
+
   return {
     newsItems,
     getNewsItems,
@@ -84,5 +89,7 @@ export const useNewsStore = defineStore('newsStore', () => {
     setSource,
     viewMode,
     setViewMode,
+    searchQuery,
+    setSearchQuery,
   };
 });

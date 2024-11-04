@@ -8,7 +8,7 @@
         <button
           class="source__btn"
           :class="{ 'source__btn--active': activeSource === source.value }"
-          @click="setSource(source.value)"
+          @click="updateSource(source.value)"
           :disabled="activeSource === source.value"
         >
           {{ source.label }}
@@ -97,6 +97,9 @@
 <script setup lang="ts">
   import type { TSource } from '@/types';
 
+  const route = useRoute();
+  const router = useRouter();
+
   const newsStore = useNewsStore();
 
   const { activeSource, viewMode } = storeToRefs(newsStore);
@@ -107,6 +110,11 @@
     { value: 'vedomosti', label: 'Ведомости' },
     { value: 'mos', label: 'Mos.ru' },
   ];
+
+  const updateSource = (source: TSource) => {
+    router.replace({ query: { ...route.query, source } });
+    setSource(source);
+  };
 
   const updateViewMode = (viewMode: 'grid' | 'list') => {
     localStorage.setItem('viewMode', viewMode);

@@ -21,10 +21,7 @@
           />
         </svg>
       </button>
-      <input
-        class="search"
-        type="text"
-      />
+      <Search />
     </div>
   </header>
 </template>
@@ -63,25 +60,6 @@
         0px 1px 4px 0px $box-shadow,
         0px 2px 4px 0px $box-shadow;
     }
-
-    .search {
-      border: none;
-      border-radius: 3px;
-      padding: 10px 13px;
-      padding-right: 40px;
-      max-width: 321px;
-      width: 100%;
-      height: 40px;
-      background-color: $white;
-      box-shadow:
-        0px 1px 4px 0px $box-shadow,
-        0px 2px 4px 0px $box-shadow;
-      outline: none;
-      background-image: url('/search.svg');
-      background-repeat: no-repeat;
-      background-position: calc(100% - 13px) center;
-      background-size: 20px 20px;
-    }
   }
 
   @media (max-width: 767px) {
@@ -97,11 +75,6 @@
 
       .refresh-news {
         margin: 0;
-      }
-
-      .search {
-        margin-top: 20px;
-        max-width: 100%;
       }
     }
   }

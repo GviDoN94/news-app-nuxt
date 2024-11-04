@@ -1,21 +1,35 @@
 <template>
   <ul
+    v-if="filterdNews.length"
     class="news"
     :class="{ 'news--list': viewMode === 'list' }"
   >
     <NewsItem
-      v-for="(newsItem, i) in newsItems"
+      v-for="(newsItem, i) in filterdNews"
       :key="i"
       :newsItem="newsItem"
       :viewMode="viewMode"
     />
   </ul>
+
+  <div v-else>Новости не найдены</div>
 </template>
 
 <script setup lang="ts">
   const newsStore = useNewsStore();
 
-  const { newsItems, viewMode } = storeToRefs(newsStore);
+  const { newsItems, viewMode, searchQuery } = storeToRefs(newsStore);
+
+  const filterdNews = computed(() => {
+    if (searchQuery.value) {
+      return newsItems.value.filter((item) => {
+        return item.title
+          .toLowerCase()
+          .includes(searchQuery.value!.toLowerCase());
+      });
+    }
+    return newsItems.value;
+  });
 </script>
 
 <style scoped lang="scss">
