@@ -1,11 +1,21 @@
 <template>
   <ul class="news">
     <NewsItem
-      v-for="i in 4"
+      v-for="(newsItem, i) in newsItems"
       :key="i"
+      :newsItem="newsItem"
     />
   </ul>
 </template>
+
+<script setup lang="ts">
+  const newsStore = useNewsStore();
+
+  const { setSource } = newsStore;
+  const { newsItems } = storeToRefs(newsStore);
+
+  await useAsyncData('getNewsItems', () => setSource().then(() => true));
+</script>
 
 <style scoped lang="scss">
   .news {

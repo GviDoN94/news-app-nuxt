@@ -4,7 +4,7 @@
   <main>
     <div class="container">
       <div class="separator"></div>
-      <Filter />
+      <FiltersBar />
       <slot />
       <Pagination />
     </div>

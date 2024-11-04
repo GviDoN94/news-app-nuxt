@@ -1,14 +1,18 @@
 <template>
   <div class="filters">
     <ul class="source">
-      <li>
-        <button class="source__btn source__btn--active">Все</button>
-      </li>
-      <li>
-        <button class="source__btn">Lenta.ru</button>
-      </li>
-      <li>
-        <button class="source__btn">Mos.ru</button>
+      <li
+        v-for="source in sources"
+        :key="source.value"
+      >
+        <button
+          class="source__btn"
+          :class="{ 'source__btn--active': activeSource === source.value }"
+          @click="setSource(source.value)"
+          :disabled="activeSource === source.value"
+        >
+          {{ source.label }}
+        </button>
       </li>
     </ul>
 
@@ -81,6 +85,21 @@
     </ul>
   </div>
 </template>
+
+<script setup lang="ts">
+  import type { TSource } from '@/types';
+
+  const newsStore = useNewsStore();
+
+  const { activeSource } = storeToRefs(newsStore);
+  const { setSource } = newsStore;
+
+  const sources: { value: TSource; label: string }[] = [
+    { value: 'all', label: 'Все' },
+    { value: 'vedomosti', label: 'Ведомости' },
+    { value: 'mos', label: 'Mos.ru' },
+  ];
+</script>
 
 <style scoped lang="scss">
   .filters {

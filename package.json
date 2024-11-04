@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "news-app-nuxt",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.7.0",
+    "fast-xml-parser": "^4.5.0",
     "nuxt": "^3.13.2",
     "pinia": "^2.2.6",
     "vue": "latest",

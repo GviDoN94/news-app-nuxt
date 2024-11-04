@@ -1,37 +1,44 @@
 <template>
   <li class="news-item">
-    <h2 class="news-item__title">
-      Первые земельные участки реализованы на специальных торгах для малого и
-      среднего бизнеса
-    </h2>
-    <div class="news-item__description">
-      На каждый участок претендовали в среднем шесть участников. Стоимость одной
-      из сделок выросла в ходе аукциона в 26 раз.
-    </div>
+    <h2 class="news-item__title">{{ newsItem.title }}</h2>
+    <div class="news-item__description">{{ newsItem.description }}</div>
     <a
       class="news-item__details"
-      href="#"
-      >Подробнее</a
+      :href="newsItem.link"
+      target="_blank"
+      rel="nofollow noopener noreferrer"
     >
+      Подробнее
+    </a>
     <div class="news-item__footer">
       <a
         class="news-item__source"
-        href="#"
+        :href="newsItem.source.link"
+        target="_blank"
+        rel="nofollow noopener noreferrer"
       >
-        www.mos.ru
+        {{ newsItem.source.title }}
       </a>
       <time
         class="news-item__date"
-        datetime="2020-01-12"
+        :datetime="newsItem.date.isoDate"
       >
-        12.01.2020
+        {{ newsItem.date.date }}
       </time>
     </div>
   </li>
 </template>
 
+<script setup lang="ts">
+  import type { INewsItem } from '@/types';
+
+  defineProps<{ newsItem: INewsItem }>();
+</script>
+
 <style scoped lang="scss">
   .news-item {
+    display: flex;
+    flex-direction: column;
     border-radius: 3px;
     padding: 30px;
     padding-bottom: 16px;
@@ -60,6 +67,7 @@
       @include link-reset;
       display: block;
       margin-top: 20px;
+      margin-bottom: auto;
       color: $main-color;
       text-decoration-line: underline;
     }
