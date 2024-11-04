@@ -71,5 +71,18 @@ export const useNewsStore = defineStore('newsStore', () => {
     }
   };
 
-  return { newsItems, getNewsItems, activeSource, setSource };
+  const viewMode = ref<'grid' | 'list'>('grid');
+
+  const setViewMode = (mode: 'grid' | 'list') => {
+    viewMode.value = mode;
+  };
+
+  return {
+    newsItems,
+    getNewsItems,
+    activeSource,
+    setSource,
+    viewMode,
+    setViewMode,
+  };
 });

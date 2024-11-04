@@ -18,7 +18,11 @@
 
     <ul class="view">
       <li>
-        <button class="view__btn">
+        <button
+          class="view__btn"
+          :class="{ 'view__btn--active': viewMode === 'list' }"
+          @click="updateViewMode('list')"
+        >
           <svg
             viewBox="0 0 18 18"
             fill="none"
@@ -43,7 +47,11 @@
         </button>
       </li>
       <li>
-        <button class="view__btn view__btn--active">
+        <button
+          class="view__btn"
+          :class="{ 'view__btn--active': viewMode === 'grid' }"
+          @click="updateViewMode('grid')"
+        >
           <svg
             viewBox="0 0 18 18"
             fill="none"
@@ -91,14 +99,19 @@
 
   const newsStore = useNewsStore();
 
-  const { activeSource } = storeToRefs(newsStore);
-  const { setSource } = newsStore;
+  const { activeSource, viewMode } = storeToRefs(newsStore);
+  const { setSource, setViewMode } = newsStore;
 
   const sources: { value: TSource; label: string }[] = [
     { value: 'all', label: 'Все' },
     { value: 'vedomosti', label: 'Ведомости' },
     { value: 'mos', label: 'Mos.ru' },
   ];
+
+  const updateViewMode = (viewMode: 'grid' | 'list') => {
+    localStorage.setItem('viewMode', viewMode);
+    setViewMode(viewMode);
+  };
 </script>
 
 <style scoped lang="scss">

@@ -1,15 +1,32 @@
 <template>
-  <li class="news-item">
-    <h2 class="news-item__title">{{ newsItem.title }}</h2>
-    <div class="news-item__description">{{ newsItem.description }}</div>
-    <a
-      class="news-item__details"
-      :href="newsItem.link"
-      target="_blank"
-      rel="nofollow noopener noreferrer"
-    >
-      Подробнее
-    </a>
+  <li
+    class="news-item"
+    :class="{ 'news-item--list': viewMode === 'list' }"
+  >
+    <div class="news-item__header">
+      <img
+        class="news-item__image"
+        :src="newsItem.image"
+        alt="News image"
+      />
+      <div class="news-item__content">
+        <h2 class="news-item__title">{{ newsItem.title }}</h2>
+        <div
+          v-if="newsItem.description"
+          class="news-item__description"
+        >
+          {{ newsItem.description }}
+        </div>
+        <a
+          class="news-item__details"
+          :href="newsItem.link"
+          target="_blank"
+          rel="nofollow noopener noreferrer"
+        >
+          Подробнее
+        </a>
+      </div>
+    </div>
     <div class="news-item__footer">
       <a
         class="news-item__source"
@@ -32,13 +49,11 @@
 <script setup lang="ts">
   import type { INewsItem } from '@/types';
 
-  defineProps<{ newsItem: INewsItem }>();
+  defineProps<{ newsItem: INewsItem; viewMode: 'grid' | 'list' }>();
 </script>
 
 <style scoped lang="scss">
   .news-item {
-    display: flex;
-    flex-direction: column;
     border-radius: 3px;
     padding: 30px;
     padding-bottom: 16px;
@@ -50,6 +65,22 @@
     box-shadow:
       0px 1px 4px 0px $box-shadow,
       0px 2px 4px 0px $box-shadow;
+
+    &__header {
+      display: flex;
+      gap: 30px;
+    }
+
+    &__image {
+      display: none;
+      width: 100%;
+      max-width: 200px;
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+    }
 
     &__title {
       color: $main-color;
@@ -83,6 +114,28 @@
     &__source {
       @include link-reset;
       text-decoration-line: underline;
+    }
+
+    &--list {
+      padding-bottom: 0;
+
+      .news-item {
+        &__image {
+          display: block;
+        }
+
+        &__description {
+          margin-top: 20px;
+        }
+
+        &__details {
+          display: none;
+        }
+
+        &__footer {
+          padding: 4px 0;
+        }
+      }
     }
   }
 </style>

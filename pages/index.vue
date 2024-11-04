@@ -1,9 +1,13 @@
 <template>
-  <ul class="news">
+  <ul
+    class="news"
+    :class="{ 'news--list': viewMode === 'list' }"
+  >
     <NewsItem
       v-for="(newsItem, i) in newsItems"
       :key="i"
       :newsItem="newsItem"
+      :viewMode="viewMode"
     />
   </ul>
 </template>
@@ -11,10 +15,7 @@
 <script setup lang="ts">
   const newsStore = useNewsStore();
 
-  const { setSource } = newsStore;
-  const { newsItems } = storeToRefs(newsStore);
-
-  await useAsyncData('getNewsItems', () => setSource().then(() => true));
+  const { newsItems, viewMode } = storeToRefs(newsStore);
 </script>
 
 <style scoped lang="scss">
