@@ -1,11 +1,11 @@
 <template>
   <ul
-    v-if="filterdNews.length"
+    v-if="newsList.length"
     class="news"
     :class="{ 'news--list': viewMode === 'list' }"
   >
     <NewsItem
-      v-for="(newsItem, i) in filterdNews"
+      v-for="(newsItem, i) in newsList"
       :key="i"
       :newsItem="newsItem"
       :viewMode="viewMode"
@@ -16,19 +16,18 @@
 </template>
 
 <script setup lang="ts">
+  const route = useRoute();
+
   const newsStore = useNewsStore();
 
-  const { newsItems, viewMode, searchQuery } = storeToRefs(newsStore);
+  const { viewMode, filteredNewsItems, newsPerPage } = storeToRefs(newsStore);
 
-  const filterdNews = computed(() => {
-    if (searchQuery.value) {
-      return newsItems.value.filter((item) => {
-        return item.title
-          .toLowerCase()
-          .includes(searchQuery.value!.toLowerCase());
-      });
-    }
-    return newsItems.value;
+  const newsList = computed(() => {
+    const currentPage = parseInt(route.params.page as string) || 1;
+    const startIndex = (currentPage - 1) * newsPerPage.value;
+    const endIndex = startIndex + newsPerPage.value;
+
+    return filteredNewsItems.value.slice(startIndex, endIndex);
   });
 </script>
 

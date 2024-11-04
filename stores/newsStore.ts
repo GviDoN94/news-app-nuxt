@@ -82,6 +82,19 @@ export const useNewsStore = defineStore('newsStore', () => {
   const setSearchQuery = (query: string | undefined) =>
     (searchQuery.value = query);
 
+  const filteredNewsItems = computed(() => {
+    if (searchQuery.value) {
+      return newsItems.value.filter((item) => {
+        return item.title
+          .toLowerCase()
+          .includes(searchQuery.value!.toLowerCase());
+      });
+    }
+    return newsItems.value;
+  });
+
+  const newsPerPage = computed(() => (viewMode.value === 'grid' ? 4 : 3));
+
   return {
     newsItems,
     getNewsItems,
@@ -91,5 +104,7 @@ export const useNewsStore = defineStore('newsStore', () => {
     setViewMode,
     searchQuery,
     setSearchQuery,
+    filteredNewsItems,
+    newsPerPage,
   };
 });

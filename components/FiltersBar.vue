@@ -116,9 +116,15 @@
     setSource(source);
   };
 
-  const updateViewMode = (viewMode: 'grid' | 'list') => {
-    localStorage.setItem('viewMode', viewMode);
-    setViewMode(viewMode);
+  const updateViewMode = (value: 'grid' | 'list') => {
+    if (value === viewMode.value) {
+      return;
+    }
+    localStorage.setItem('viewMode', value);
+    setViewMode(value);
+    if (route.params.page !== '1') {
+      router.replace({ name: 'page', params: { page: 1 } });
+    }
   };
 </script>
 

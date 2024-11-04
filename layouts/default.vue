@@ -6,10 +6,19 @@
       <div class="separator"></div>
       <FiltersBar />
       <slot />
-      <Pagination />
+      <Pagination v-if="showPagination" />
     </div>
   </main>
 </template>
+
+<script setup lang="ts">
+  const newsStore = useNewsStore();
+  const { newsPerPage, filteredNewsItems } = storeToRefs(newsStore);
+
+  const showPagination = computed(
+    () => filteredNewsItems.value.length > newsPerPage.value,
+  );
+</script>
 
 <style scoped lang="scss">
   .separator {
